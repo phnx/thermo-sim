@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>Thermo Simulator</h1>
+{% endblock %}
+
+{% block content %}
+<h2>Base Input</h2>
+<div>
+	<div class="field">
+		<label class="label">Var 1</label>
+		<div class="control">
+			<input type="text" id="var-1-input" class="input">
+		</div>
+	</div>
+	<div class="field">
+		<label class="label">Var 2</label>
+		<div class="control">
+			<input type="text" id="var-2-input" class="input">
+		</div>
+	</div>
+	<div class="field">
+		<div class="control"><button class="button" onclick="calculate()">Submit</button></div>
+	</div>
+</div>
+
+<div>
+	<div class="field">
+		<label class="label">Result</label>
+		<pre id="calculation-result">
+			
+		</pre>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	function build_query(params) {
+		return Object.keys(params)
+		             .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+		             .join('&');
+	}
+
+	function calculate() {
+
+		let params = {
+		  "var_1": document.getElementById('var-1-input').value.trim(),
+		  "var_2": document.getElementById('var-2-input').value.trim(),
+		};
+
+		let url = '/calculate?' + build_query(params);
+
+		fetch(url)
+		  .then(data => data.text())
+		  .then((text) => {
+		    console.log('request succeeded with JSON response', text)
+		    document.getElementById('calculation-result').innerHTML = text
+		  }).catch(function (error) {
+		    document.getElementById('calculation-result').innerHTML = error
+		  });
+
+	}
+
+</script>
+{% endblock %}
