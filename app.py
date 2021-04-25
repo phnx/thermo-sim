@@ -11,7 +11,7 @@ from thermo_sim import calculate
 app = Flask(__name__)
 
 @app.route("/calculate", methods=["GET"])
-def calculation():
+def calculation() -> str:
     screen_result = None
 
     if request.args.get("var_1") is not None and request.args.get("var_2") is not None:
@@ -29,5 +29,5 @@ def main():
 
 # ================================
 
-def response_formatter(data: dict):
+def response_formatter(data: dict) -> str:
     return json.dumps(data)
