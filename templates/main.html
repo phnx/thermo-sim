@@ -51,10 +51,10 @@
 		let url = '/calculate?' + build_query(params);
 
 		fetch(url)
-		  .then(data => data.text())
+		  .then(data => data.json())
 		  .then((text) => {
 		    console.log('request succeeded with JSON response', text)
-		    document.getElementById('calculation-result').innerHTML = text
+		    document.getElementById('calculation-result').innerHTML = JSON.stringify(text, null, 2)
 		  }).catch(function (error) {
 		    document.getElementById('calculation-result').innerHTML = error
 		  });

@@ -1,1 +1,1 @@
-from .calculation_manager import calculate
+from .calculation_manager import calculate_1, calculate_2, calculate_3
