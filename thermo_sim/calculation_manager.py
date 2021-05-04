@@ -39,10 +39,10 @@ def compressor(h4: float, p4: float, p1: float, pump_rpm: float) -> [float, floa
 
     hcompout = CP.PropsSI("H","S",scompout,"P",pcompout,"R12")
     weight_scale = mcompin*(hcompout-hcompin)/(mech_eff*9.81*motor_arm*pump_rpm*2*3.14/60)
-    
+
     return mcompin, mcompout, hcompout, weight_scale
 
-def chamber1(dt: float, h1: float, p1: float, mcompout: float, mcondin: float, hcompout: float) -> [float, float]:
+def chamber1(dt: float, h1: float, p1: float, mcompout: float, mcondin: float, hcompout: float) -> [float, float, float]:
     volume1 = 0.1
 
     h1_1 = h1
@@ -58,8 +58,9 @@ def chamber1(dt: float, h1: float, p1: float, mcompout: float, mcondin: float, h
 
     h1 = ((m1_1*h1_1)+(m1in*h1in-m1out*h1_1)*dt)/m1_1
     p1 = CP.PropsSI("P","H",h1,"D",density,"R12")
+    t1 = CP.PropsSI("T","H",h1,"D",density,"R12")
 
-    return h1, p1
+    return h1, p1, t1
 
 def condenser(h1: float, p1: float, p2: float, twin: float, wvalve: float) -> [float, float, float, float, float]:
     hcondin = h1
@@ -86,7 +87,7 @@ def condenser(h1: float, p1: float, p2: float, twin: float, wvalve: float) -> [f
 
     return mcondin, mcondout, hcondout, twout, mwout
 
-def chamber2(dt: float, h2: float, p2: float, mcondout: float, mexpain: float, hcondout: float) -> [float, float]:
+def chamber2(dt: float, h2: float, p2: float, mcondout: float, mexpain: float, hcondout: float) -> [float, float, float]:
     volume2 = 0.1
 
     h2_1 = h2
@@ -102,8 +103,9 @@ def chamber2(dt: float, h2: float, p2: float, mcondout: float, mexpain: float, h
 
     h2 = ((m2_1*h2_1)+(m2in*h2in-m2out*h2_1)*dt)/m2_1
     p2 = CP.PropsSI("P","H",h2,"D",density,"R12")
+    t2 = CP.PropsSI("T","H",h2,"D",density,"R12")
 
-    return h2, p2
+    return h2, p2, t2
 
 def expansion(h2: float, p2: float, p3: float) -> [float, float, float]:
     hexpain = h2
@@ -117,7 +119,7 @@ def expansion(h2: float, p2: float, p3: float) -> [float, float, float]:
 
     return mexpain, mexpaout, hexpaout
 
-def chamber3(dt: float, h3: float, p3: float, mexpaout: float, mevapin: float, hexpaout: float) -> [float, float]:
+def chamber3(dt: float, h3: float, p3: float, mexpaout: float, mevapin: float, hexpaout: float) -> [float, float, float]:
     volume3 = 0.1
 
     h3_1 = h3
@@ -133,8 +135,9 @@ def chamber3(dt: float, h3: float, p3: float, mexpaout: float, mevapin: float, h
 
     h3 = ((m3_1*h3_1)+(m3in*h3in-m3out*h3_1)*dt)/m3_1
     p3 = CP.PropsSI("P","H",h3,"D",density,"R12")
+    t3 = CP.PropsSI("T","H",h3,"D",density,"R12")
 
-    return h3, p3
+    return h3, p3, t3
 
 def evaporator(h3: float, p3: float, p4: float, heater: float) -> [float, float, float]:
 
@@ -150,7 +153,7 @@ def evaporator(h3: float, p3: float, p4: float, heater: float) -> [float, float,
 
     return mevapin, mevapout, hevapout
 
-def chamber4(dt: float, h4: float, p4: float, mevapout: float, mcompin: float, hevapout: float) -> [float, float]:
+def chamber4(dt: float, h4: float, p4: float, mevapout: float, mcompin: float, hevapout: float) -> [float, float, float]:
     volume4 = 0.1
 
     h4_1 = h4
@@ -166,8 +169,9 @@ def chamber4(dt: float, h4: float, p4: float, mevapout: float, mcompin: float, h
 
     h4 = ((m4_1*h4_1)+(m4in*h4in-m4out*h4_1)*dt)/m4_1
     p4 = CP.PropsSI("P","H",h4,"D",density,"R12")
+    t4 = CP.PropsSI("T","H",h4,"D",density,"R12")
 
-    return h4, p4
+    return h4, p4, t4
 
 def calculate_2(var_1: float, var_2: float) -> float:
     # CP can be used here with 2 input variables

@@ -153,12 +153,16 @@ def refrigeration() -> str:
 
         "h1": chamber1_result[0],
         "p1": chamber1_result[1],
+        "t1": chamber1_result[2]-273.15,
         "h2": chamber2_result[0],
         "p2": chamber2_result[1],
+        "t2": chamber2_result[2]-273.15,
         "h3": chamber3_result[0],
         "p3": chamber3_result[1],
+        "t3": chamber3_result[2]-273.15,
         "h4": chamber4_result[0],
-        "p4": chamber4_result[1],     
+        "p4": chamber4_result[1],  
+        "t4": chamber4_result[2]-273.15,   
 
         "mcompin": compressor_result[0],
         "mcompout": compressor_result[1],
