@@ -1,1 +1,1 @@
-from .calculation_manager import calculate_1, calculate_2, calculate_3
+from .calculation_manager import calculate_1, calculate_2, calculate_3, compressor, chamber1, condenser, chamber2, expansion, chamber3, evaporator, chamber4
