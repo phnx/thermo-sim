@@ -131,8 +131,12 @@
         </div>
         <div class="columns">
             <div class="column">
-                <div id="example">
-                  <button v-on:click="updateCalculation">Iterate</button>
+                <div class="field">
+                    <button class="button" v-on:click="updateCalculation" :disabled="keepIterating">Iterate Once</button>
+                </div>
+                <div class="field">
+                    <input id="switchRtlExample" v-model="keepIterating" value="true" type="checkbox" name="switchRtlExample" class="switch is-rtl">
+                    <label for="switchRtlExample">Keep Iterating</label>
                 </div>
             </div>
         </div>
@@ -286,6 +290,9 @@
                 mevapout: null,
                 hevapout: null,
 
+                // iteration control
+                keepIterating: false,
+
             }
         },
         mounted: function () {
@@ -296,6 +303,10 @@
             // this.$refs.p34.value = 40;
             // this.$refs.p4.value = 100;
             // this.$refs.heater.value = 150;
+
+
+            this.manageIteration()
+
 
         },
         methods: {
@@ -400,8 +411,19 @@
                     this.$refs.linearMcompout.value = this.mcompout;
 
                   }).catch(function (error) {
-                    console.log(error);
+                    document.getElementById('calculation-result').innerHTML = "An error occured on backend side - time to call a technician"
+                    console.log("An error occured on backend side - time to call a technician");
                   });
+            },
+            manageIteration: function() {
+                setInterval(() => {
+                    
+                    if(this.keepIterating === true) {
+                        this.updateCalculation();
+                    }
+
+                }, 1000)
+
             },
         }
     }
