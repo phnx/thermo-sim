@@ -9,7 +9,11 @@ from flask import Flask, request, render_template
 
 from thermo_sim import calculate_1, calculate_2, calculate_3, compressor, chamber1, condenser, chamber2, expansion, chamber3, evaporator, chamber4
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_url_path='', 
+    static_folder='static'
+)
 
 @app.route("/calculate", methods=["GET"])
 def calculation() -> str:
@@ -137,7 +141,12 @@ def refrigeration() -> str:
         heater = float(request.args.get("heater"))
         dt = float(request.args.get("dt"))
 
-    if request.args.get("pump_rpm") is not None and request.args.get("twin") is not None and request.args.get("wvalve") is not None and request.args.get("heater") is not None and request.args.get("dt") is not None:
+    if (request.args.get("pump_rpm") is not None
+        and request.args.get("twin") is not None 
+        and request.args.get("wvalve") is not None 
+        and request.args.get("heater") is not None 
+        and request.args.get("dt") is not None):
+
         compressor_result = compressor(h4, p4, p1, pump_rpm)
         chamber1_result = chamber1(dt, h1, p1, mcompout, mcondin, hcompout)
         condenser_result = condenser(h1, p1, p2, twin, wvalve)
@@ -152,18 +161,18 @@ def refrigeration() -> str:
     return response_formatter({
 
         "h1": chamber1_result[0],
-        "p1": chamber1_result[1]*14.50377/100000-14.6959,
-        "t1": chamber1_result[2]-273.15,
+        "p1": chamber1_result[1],
+        "t1": chamber1_result[2],
         "h2": chamber2_result[0],
-        "p2": chamber2_result[1]*14.50377/100000-14.6959,
-        "t2": chamber2_result[2]-273.15,
+        "p2": chamber2_result[1],
+        "t2": chamber2_result[2],
         "h3": chamber3_result[0],
-        "p3": chamber3_result[1]*14.50377/100000-14.6959,
-        "t3": chamber3_result[2]-273.15,
-        "p34": (chamber3_result[1]+chamber4_result[1])/2*14.50377/100000-14.6959,
+        "p3": chamber3_result[1],
+        "t3": chamber3_result[2],
+        "p34": (chamber3_result[1]+chamber4_result[1])/2,
         "h4": chamber4_result[0],
-        "p4": chamber4_result[1]*14.50377/100000-14.6959,  
-        "t4": chamber4_result[2]-273.15,   
+        "p4": chamber4_result[1],  
+        "t4": chamber4_result[2],   
 
         "mcompin": compressor_result[0],
         "mcompout": compressor_result[1],
