@@ -4,75 +4,87 @@
             <div class="column">
                 <JqxGauge ref="p1" @valueChanging="onValueChanging($event)"
                           :ranges="gaugeRanges200" :ticksMajor="gaugeTicksMajor" :value="0" 
-                          :animationDuration="300" :max="200" :caption="{value: 'p1'}"
+                          :animationDuration="300" :max="200" :caption="{value: 'DELIVERY GAUGE'}"
                           :width="gaugeWidth" :height="gaugeHeight" :labels="gaugeLabels200">
                 </JqxGauge>
             </div>
             <div class="column">
                 <JqxGauge ref="p2" @valueChanging="onValueChanging($event)"
                           :ranges="gaugeRanges200" :ticksMajor="gaugeTicksMajor" :value="0" 
-                          :animationDuration="300" :max="200" :caption="{value: 'p2'}"
+                          :animationDuration="300" :max="200" :caption="{value: 'LIQUID GAUGE'}"
                           :width="gaugeWidth" :height="gaugeHeight" :labels="gaugeLabels200">
                 </JqxGauge>
             </div>
             <div class="column">
                 <JqxGauge ref="p3" @valueChanging="onValueChanging($event)"
                           :ranges="gaugeRanges100" :ticksMajor="gaugeTicksMajor" :value="0" 
-                          :animationDuration="300" :max="100" :caption="{value: 'p3'}"
+                          :animationDuration="300" :max="100" :caption="{value: 'EXPANSION GAUGE'}"
                           :width="gaugeWidth" :height="gaugeHeight" :labels="gaugeLabels100">
                 </JqxGauge>
             </div>
             <div class="column">
                 <JqxGauge ref="p34" @valueChanging="onValueChanging($event)"
                           :ranges="gaugeRanges100" :ticksMajor="gaugeTicksMajor" :value="0" 
-                          :animationDuration="300" :max="100" :caption="{value: 'p34'}"
+                          :animationDuration="300" :max="100" :caption="{value: 'CALORIMETER GAUGE'}"
                           :width="gaugeWidth" :height="gaugeHeight" :labels="gaugeLabels100">
                 </JqxGauge>
             </div>
             <div class="column">
                 <JqxGauge ref="p4" @valueChanging="onValueChanging($event)"
                           :ranges="gaugeRanges100" :ticksMajor="gaugeTicksMajor" :value="0"
-                          :animationDuration="300" :max="100" :caption="{value: 'Suction gauge'}"
+                          :animationDuration="300" :max="100" :caption="{value: 'SUCTION GAUGE'}"
                           :width="gaugeWidth" :height="gaugeHeight" :labels="gaugeLabels100">
                 </JqxGauge>
             </div>
             <div class="column">
                 <JqxGauge ref="heaterGauge" @valueChanging="onValueChanging($event)"
-                          :ranges="gaugeRanges2000" :ticksMajor="gaugeTicksMajor" :value="0"
-                          :animationDuration="300" :max="2000" :caption="{value: 'heater'}"
+                          :ranges="gaugeRanges2000" :ticksMajor="gaugeTicksMajor2000" :value="0"
+                          :animationDuration="300" :max="2000" :caption="{value: 'HEATER (WATT)'}"
                           :width="gaugeWidth" :height="gaugeHeight" :labels="gaugeLabels2000">
                 </JqxGauge>
             </div>
         </div>
         <div class="columns">
             <div class="column">
-                <label for="twin">TWin</label>
-                <input type="text" name="twin" v-model="twin-273.15" disabled>
+                <label for="t1">DELIVERY TEMPERATURE</label>
+                <input type="text" name="t1" v-model="(t1-273.15).toFixed(5)" disabled>
             </div>
             <div class="column">
-                <label for="twout">TWout</label>
-                <input type="text" name="twout" v-model="twout-273.15" disabled>
+                <label for="t2">LIQUID TEMPERATURE</label>
+                <input type="text" name="t2" v-model="(t2-273.15).toFixed(5)" disabled>
             </div>
             <div class="column">
-                <label for="t1">T1</label>
-                <input type="text" name="t1" v-model="t1-273.15" disabled>
+                <label for="t3">EXPANSION TEMPERATURE</label>
+                <input type="text" name="t3" v-model="(t3-273.15).toFixed(5)" disabled>
+            </div>
+            <div class="column"></div>
+            <div class="column">
+                <label for="t4">SUCTION TEMPERATURE</label>
+                <input type="text" name="t4" v-model="(t4-273.15).toFixed(5)" disabled>
             </div>
             <div class="column">
-                <label for="t2">T2</label>
-                <input type="text" name="t2" v-model="t2-273.15" disabled>
-            </div>
-            <div class="column">
-                <label for="t3">T3</label>
-                <input type="text" name="t3" v-model="t3-273.15" disabled>
-            </div>
-            <div class="column">
-                <label for="t4">T4</label>
-                <input type="text" name="t4" v-model="t4-273.15" disabled>
+                <label for="heater">HEATER</label>
+                <JqxKnob ref="heater" :value="1000" :min="0" :max="2000" :startAngle="120"
+                     :endAngle="480" :snapToStep="true" :rotation="'clockwise'"
+                     :marks="knobMarks2000" :labels="knobLabels2000" :progressBar="knobProgressBar"
+                     :pointer="knobPointer" :width="knobWidth" :height="knobHeight">
+                </JqxKnob>
             </div>
         </div>
         <div class="columns">
             <div class="column">
-                <label for="linearWvalve">WValve</label>
+                <label for="twin">WATER INLET TEMPERATURE (°C)</label>
+                <input type="text" name="twin" v-model="(twin_c).toFixed(1)" disabled>
+            </div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <label for="linearWvalve">WATER FLOW RATE</label>
                 <JqxLinearGauge ref="linearWvalve" style="overflow: visible!important"
                         :width="120" :height="200" :min="0" :max="100" :orientation="'vertical'"
                         :ticksMajor="gaugeTicksMajorLinear100" :pointer="{ size: '5%' }" 
@@ -81,7 +93,7 @@
                 </JqxLinearGauge>
             </div>
             <div class="column">
-                <label for="linearWeightScale">Weight Scale</label>
+                <label for="linearWeightScale">WEIGHT SCALE</label>
                 <JqxLinearGauge ref="linearWeightScale" style="overflow: visible!important"
                         :width="120" :height="200" :min="0" :max="10" :orientation="'vertical'"
                         :ticksMajor="gaugeTicksMajorLinear10" :pointer="{ size: '5%' }" 
@@ -89,8 +101,11 @@
                         :ranges="gaugeRangesLinear10" :animationDuration="300">
                 </JqxLinearGauge>
             </div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
             <div class="column">
-                <label for="linearMcompout">MCompOut</label>
+                <label for="linearMcompout">REFRIGERANT MASS FLOW RATE (G/S)</label>
                 <JqxLinearGauge ref="linearMcompout" style="overflow: visible!important"
                         :width="120" :height="200" :min="0" :max="0.05" :orientation="'vertical'"
                         :ticksMajor="gaugeTicksMajorLinear005" :pointer="{ size: '5%' }" 
@@ -101,50 +116,60 @@
         </div>
         <div class="columns">
             <div class="column">
-                <label for="wvalve">wvalve</label>
+                <label for="twout">WATER OUTLET TEMPERATURE</label>
+                <input type="text" name="twout" v-model="(twout-273.15).toFixed(5)" disabled>
+            </div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <label for="wvalve">WATER VALVE</label>
                 <JqxKnob ref="wvalve" :value="30" :min="0" :max="100" :startAngle="120"
                      :endAngle="480" :snapToStep="true" :rotation="'clockwise'"
                      :marks="knobMarks100" :labels="knobLabels100" :progressBar="knobProgressBar" 
                      :pointer="knobPointer" :width="knobWidth" :height="knobHeight">
                 </JqxKnob>
             </div>
-            <div class="column">
-                <label for="twin">Water Temperature</label>
-                <input type="text" name="twin" v-model="twin" value="30">
-            </div>
-            <div class="column">
-                <label for="dt">Time Step</label>
-                <input type="text" name="dt" v-model="dt" value="20">
-            </div>
-            <div class="column">
-                <label for="pump_rpm">pump_rpm</label>
-                <input type="text" name="pump_rpm" v-model="pump_rpm" value="1500">
-            </div>
-            <div class="column">
-                <label for="heater">heater</label>
-                <JqxKnob ref="heater" :value="1000" :min="0" :max="2000" :startAngle="120"
-                     :endAngle="480" :snapToStep="true" :rotation="'clockwise'"
-                     :marks="knobMarks2000" :labels="knobLabels2000" :progressBar="knobProgressBar"
-                     :pointer="knobPointer" :width="knobWidth" :height="knobHeight">
-                </JqxKnob>
-            </div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
         </div>
+        <hr>
         <div class="columns">
             <div class="column">
                 <div class="field">
-                    <button class="button" v-on:click="updateCalculation" :disabled="keepIterating">Iterate Once</button>
+                    <button class="button" v-on:click="updateCalculation" :disabled="keepIterating==='yes'">Iterate Once</button> 
                 </div>
                 <div class="field">
-                    <input id="switchRtlExample" v-model="keepIterating" value="true" type="checkbox" name="switchRtlExample" class="switch is-rtl">
+                    <input id="switchRtlExample" v-model="keepIterating" true-value="yes" false-value="no" type="checkbox" name="switchRtlExample" class="switch is-rtl">
                     <label for="switchRtlExample">Keep Iterating</label>
+                    Iteration: {{ iterationCount }}
                 </div>
+            </div>
+            <div class="column">
+                <label for="twin">WATER INLET TEMPERATURE (°C)</label>
+                <input type="text" name="twin" v-model="twin_c">
+            </div>
+            <div class="column">
+                <label for="dt">TIME STEP</label>
+                <input type="text" name="dt" v-model="dt" value="20">
+            </div>
+            <div class="column">
+                <label for="pump_rpm">PUMP SPEED (RPM)</label>
+                <input type="text" name="pump_rpm" v-model="pump_rpm" value="1500">
             </div>
         </div>
         <div class="columns">
             <div class="column">
                 <div>
                     <div class="field">
-                        <label class="label">Result</label>
+                        <label class="label">Raw Result</label>
                         <pre id="calculation-result">
                             
                         </pre>
@@ -169,6 +194,7 @@
         data: function () {
             return {
                 gaugeTicksMajor: { interval: 5, size: '5%' },
+                gaugeTicksMajor2000: { interval: 100, size: '5%' },
                 gaugeWidth: "120px",
                 gaugeHeight: "120px",
                 knobWidth: "120px",
@@ -256,7 +282,7 @@
 
                 // model input values
                 pump_rpm: 1500,
-                twin: 303,
+                twin_c: 30,
                 dt: 3,
 
                 // derived values
@@ -291,7 +317,8 @@
                 hevapout: null,
 
                 // iteration control
-                keepIterating: false,
+                keepIterating: 'no',
+                iterationCount: 0,
 
             }
         },
@@ -314,7 +341,7 @@
                 let params = {
                     // input values
                     "pump_rpm": this.pump_rpm,
-                    "twin": this.twin,
+                    "twin": this.twin_c + 273.15,
                     "wvalve": this.$refs.wvalve.value,
                     "heater": this.$refs.heater.value,
                     "dt": this.dt,
@@ -410,15 +437,20 @@
                     this.$refs.linearWeightScale.value = this.weight_scale;
                     this.$refs.linearMcompout.value = this.mcompout;
 
+                    this.iterationCount++;
+
                   }).catch(function (error) {
-                    document.getElementById('calculation-result').innerHTML = "An error occured on backend side - time to call a technician"
-                    console.log("An error occured on backend side - time to call a technician");
+                    this.keepIterating = 'no';
+                    var msg = "An error occured on backend side - time to call a technician";
+                    document.getElementById('calculation-result').innerHTML = msg;
+                    console.log(msg);
+                    
                   });
             },
             manageIteration: function() {
                 setInterval(() => {
                     
-                    if(this.keepIterating === true) {
+                    if(this.keepIterating === 'yes') {
                         this.updateCalculation();
                     }
 
