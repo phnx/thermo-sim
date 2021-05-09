@@ -32,7 +32,7 @@
             <div class="column">
                 <JqxGauge ref="p4" @valueChanging="onValueChanging($event)"
                           :ranges="gaugeRanges100" :ticksMajor="gaugeTicksMajor" :value="0"
-                          :animationDuration="300" :max="100" :caption="{value: 'p4'}"
+                          :animationDuration="300" :max="100" :caption="{value: 'Suction gauge'}"
                           :width="gaugeWidth" :height="gaugeHeight" :labels="gaugeLabels100">
                 </JqxGauge>
             </div>
