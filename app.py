@@ -81,9 +81,9 @@ def refrigeration() -> str:
         or request.args.get("dt") is None):
 
         h1 = 370000
-        h2 = 330000
+        h2 = 240000
         h3 = 240000
-        h4 = 226000
+        h4 = 360000
         p1 = 1000000
         p2 = 965000
         p3 = 220632
@@ -106,7 +106,7 @@ def refrigeration() -> str:
         twin = 303
         wvalve = 22
         heater = 300
-        dt = 3
+        dt = 1
 
         weight_scale = 1
         twout = 1

@@ -67,23 +67,52 @@ def condenser(h1: float, p1: float, p2: float, twin: float, wvalve: float) -> [f
     pcondin = p1
     pcondout = p2
     mwin = 0.203*wvalve/100
+    # mwin = 0.803*wvalve/100
     mwout = mwin
 
-    epsilon = 0.15
+    # epsilon = 0.15
     cpw = 4120
-    cpr12 = 728
+    # cpr12 = 728
     kcond = 3.42*(10.0**(-7.0))
 
-    latentr12 = CP.PropsSI("H","P",pcondin,"Q",1,"R12") - CP.PropsSI("H","P",pcondin,"Q",0,"R12")
+    # latentr12 = CP.PropsSI("H","P",pcondin,"Q",1,"R12") - CP.PropsSI("H","P",pcondin,"Q",0,"R12")
     mcondin = kcond*(pcondin - pcondout)
     mcondout = mcondin
-    ch = mcondin*( cpr12 + latentr12/CP.PropsSI("T","P",pcondin,"Q",1,"R12") )
-    cc = cpw*mwin*2
-    cmin = cc
-    qmax = cmin*( CP.PropsSI("T","H",hcondin,"P",pcondin,"R12") - twin)
-    qacc = epsilon*qmax
-    twout = twin+qacc/mwin/cpw
-    hcondout = (mcondin*hcondin - qacc)/mcondout
+    
+    UA = 2000
+    tcondin = CP.PropsSI("T","P",pcondin,"H",hcondin,"R12")
+    Qcond = mwin*UA*(tcondin - twin)
+    hcondout = hcondin - Qcond/mcondin
+    twout = Qcond/mwin/cpw + twin
+
+    # twin = 25+273.15
+    # tcondout = twin
+    # hcondout = CP.PropsSI("H","P",pcondin,"T",tcondout,"R12")
+    # Qcond = mcondin*(hcondin - hcondout)
+
+    
+    # twout = Qcond/mwin/cpw + twin
+    
+    
+    # if twout > tcondin:
+    #     twout = tcondin
+    #     Qw = mwin*cpw*(twout - twin)
+    #     Qcond = Qw
+    # else :
+    #     Qw = Qcond
+    # hcondout = hcondin - Qcond/mcondin
+    # tcondout = CP.PropsSI("T","P",pcondin,"H",hcondout,"R12")
+
+    # twout = CP.PropsSI("H","P",pcondin,"T",tcondout,"R12")
+
+    # ch = mcondin*( cpr12 + latentr12/CP.PropsSI("T","P",pcondin,"Q",1,"R12") )
+    # cc = cpw*mwin*2
+    # cmin = cc
+    # qmax = cmin*( CP.PropsSI("T","H",hcondin,"P",pcondin,"R12") - twin)
+    # qacc = epsilon*qmax
+    
+    # twout = twin+qacc/mwin/cpw
+    # hcondout = (mcondin*hcondin - qacc)/mcondout
 
     return mcondin, mcondout, hcondout, twout, mwout
 
